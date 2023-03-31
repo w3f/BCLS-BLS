@@ -1,0 +1,39 @@
+[package]
+name = "nugget_bls"
+description = "VRFs from Chaum-Pedersen DLEQ proofs, usable in Ring VRFs"
+authors = ["Sergey Vasilyev <swasilyev@gmail.com>", "Jeff Burdges <jeff@web3.foundation>", "Syed Hosseini <syed@riseup.net>"]
+version = "0.0.1"
+repository = "https://github.com/w3f/ring-vrf/tree/master/nugget_bls"
+edition = "2021"
+license = "MIT/Apache-2.0"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dleq_vrf = { version = "0.0.1", default-features = false, git = "https://github.com/w3f/ring-vrf/" }
+
+rand_core = { version = "0.6", default-features = false }
+merlin = { version = "3.0", default-features = false }
+
+ark-std = { version = "0.4", default-features = false }
+ark-ff = { version = "0.4", default-features = false }
+ark-ec = { version = "0.4", default-features = false }
+ark-serialize = { version = "0.4", default-features = false, features = [ "derive" ] }
+ark-serialize-derive = { version = "0.4", default-features = false }
+
+# zeroize = { version = "1.0", default-features = false, features = [ "zeroize_derive" ] }
+
+# ark-bls12-377 = { version = "0.4", default-features = false, features = [ "curve" ], optional = true }
+ark-bls12-381 = { version = "0.4", default-features = false, features = [ "curve" ], optional = true }
+sha2 = { version = "0.10", default-features = false, optional = true }
+
+
+[dev-dependencies]
+
+
+[features]
+default = ["getrandom", "bls12_381"] # "std", "rand"
+# bls12_377 = ["dep:ark_bls12_377"]
+bls12_381 = ["dep:ark-bls12-381", "dep:sha2"]
+getrandom = ["dleq_vrf/getrandom"]
